@@ -1,0 +1,96 @@
+''' Run DE strategies
+'''
+
+results = [f'lme_out_{i}.csv' for i in range(10)]
+results += [f'glm_out_{i}.csv' for i in range(10)]
+results += [f'lm_out_{i}.csv' for i in range(10)]
+results += [f'sum_lme_out_{i}.csv' for i in range(10)]
+results += [f'sum_glm_out_{i}.csv' for i in range(10)]
+results += [f'sum_lm_out_{i}.csv' for i in range(10)]
+
+rule all:
+    input: results
+
+rule lme_de:
+    input:
+        runscript='scripts/run_lme.R',
+        metadata='metadata.csv',
+        genefile=lambda wildcards: f'genes_chunk_{wildcards.num}.csv'
+    output:
+        'lme_out_{num}.csv'
+    shell:
+        ''' Rscript --vanilla {input.runscript} \
+            {input.metadata} \
+            {input.genefile} \
+            {output}
+        '''
+
+rule glm_de:
+    input:
+        runscript='scripts/run_glm.R',
+        metadata='metadata.csv',
+        genefile=lambda wildcards: f'genes_chunk_{wildcards.num}.csv'
+    output:
+        'glm_out_{num}.csv'
+    shell:
+        ''' Rscript --vanilla {input.runscript} \
+            {input.metadata} \
+            {input.genefile} \
+            {output}
+        '''
+
+rule lm_de:
+    input:
+        runscript='scripts/run_lm.R',
+        metadata='metadata.csv',
+        genefile=lambda wildcards: f'genes_chunk_{wildcards.num}.csv'
+    output:
+        'lm_out_{num}.csv'
+    shell:
+        ''' Rscript --vanilla {input.runscript} \
+            {input.metadata} \
+            {input.genefile} \
+            {output}
+        '''
+
+rule sum_lme_de:
+    input:
+        runscript='scripts/run_lme.R',
+        metadata='sum_metadata.csv',
+        genefile=lambda wildcards: f'sum_genes_chunk_{wildcards.num}.csv'
+    output:
+        'sum_lme_out_{num}.csv'
+    shell:
+        ''' Rscript --vanilla {input.runscript} \
+            {input.metadata} \
+            {input.genefile} \
+            {output}
+        '''
+
+rule sum_glm_de:
+    input:
+        runscript='scripts/run_glm.R',
+        metadata='sum_metadata.csv',
+        genefile=lambda wildcards: f'sum_genes_chunk_{wildcards.num}.csv'
+    output:
+        'sum_glm_out_{num}.csv'
+    shell:
+        ''' Rscript --vanilla {input.runscript} \
+            {input.metadata} \
+            {input.genefile} \
+            {output}
+        '''
+
+rule sum_lm_de:
+    input:
+        runscript='scripts/run_lm.R',
+        metadata='sum_metadata.csv',
+        genefile=lambda wildcards: f'sum_genes_chunk_{wildcards.num}.csv'
+    output:
+        'sum_lm_out_{num}.csv'
+    shell:
+        ''' Rscript --vanilla {input.runscript} \
+            {input.metadata} \
+            {input.genefile} \
+            {output}
+        '''
