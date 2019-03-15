@@ -1,0 +1,121 @@
+---
+title: "Photos per steps"
+output: html_notebook
+---
+
+```{r}
+setwd('C:/Users/vale/Google Drive/apple_health_export/')
+library(tidyverse)
+library(brms)
+library(brmstools)
+```
+
+```{r}
+data <- read_csv('steps_per_day.csv')
+```
+
+```{r}
+data %>% 
+  filter(steps > 0) %>%
+  filter(!is.na(photos)) ->
+  data
+```
+
+```{r}
+data %>% gather('key', 'value', -creationDate) %>%
+  ggplot(aes(x = creationDate, y = value)) +
+  geom_bar(stat = 'identity') + 
+  facet_grid('key ~ .', scales='free_y') + 
+  theme_minimal() +
+  labs(x = 'Date', y = 'Count', title='Daily steps and photos taken', subtitle = 'Sep 2017 - Mar 2019')
+
+ggsave('days_and_photos.png')
+```
+
+
+
+```{r}
+data %>% ggplot(aes(x = steps, y = photos)) +
+  geom_point() + 
+  scale_y_log10() +
+  scale_x_log10() + 
+  theme_minimal()
+```
+
+```{r}
+fit1 <- brm('photos ~ log(steps)', family = poisson(), data = data)
+```
+
+
+```{r}
+fit1
+```
+
+```{r}
+marginal_effects(fit1, method = 'predict')
+```
+
+```{r}
+fit1.pred <- predict(fit1)
+```
+
+```{r}
+jdata <- bind_cols(data, as_tibble(fit1.pred))
+```
+
+
+```{r}
+ggplot(data = jdata, aes(x = steps, y = photos)) +
+  geom_point() + 
+  geom_ribbon(aes(ymin = Q2.5, ymax = Q97.5), alpha=0.1, fill='red') + 
+  geom_line(color='red', size=0.5, aes(x = steps, y = Estimate)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_minimal() +
+  labs(x = 'Steps taken', y = 'Photos taken', title = 'Poisson regression', subtitle = '~ 50 more photos for every 10,000 steps')
+
+ggsave('steps_to_photos_regression.png')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
