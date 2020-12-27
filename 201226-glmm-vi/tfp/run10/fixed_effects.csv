@@ -1,0 +1,21 @@
+,cell_group,mean,std
+0,B : PBMC : diseased,-4.718198,0.01771604
+1,B : PBMC : healthy,-5.1710286,0.018422015
+2,B : R : diseased,-4.1611547,0.009517714
+3,B : R : healthy,-4.2595963,0.0097650215
+4,M/DC : PBMC : diseased,-3.010318,0.008309916
+5,M/DC : PBMC : healthy,-4.111306,0.009065752
+6,M/DC : R : diseased,-3.9812412,0.06690172
+7,M/DC : R : healthy,-4.483519,0.08999959
+8,NK : PBMC : diseased,-3.1976664,0.009471307
+9,NK : PBMC : healthy,-4.149538,0.010797619
+10,NK : R : diseased,-3.7719152,0.027794763
+11,NK : R : healthy,-3.4758492,0.013281867
+12,T : PBMC : diseased,-4.3730464,0.008848602
+13,T : PBMC : healthy,-5.1752462,0.010840046
+14,T : R : diseased,-3.9024284,0.009147311
+15,T : R : healthy,-4.4846377,0.008638505
+16,unknown : PBMC : diseased,-4.9308815,0.02182314
+17,unknown : PBMC : healthy,-3.3066468,0.009796288
+18,unknown : R : diseased,-3.9807053,0.012971723
+19,unknown : R : healthy,-5.7506533,0.13470417
