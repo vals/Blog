@@ -1,0 +1,7 @@
+scvi-tools>=1.0.0
+anndata
+scipy
+pandas
+numpy
+pytorch-lightning
+tensorboard
